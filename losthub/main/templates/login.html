@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-hans">
 <head>
     <meta charset="UTF-8">
     <title>LOGIN</title>
@@ -7,5 +7,11 @@
 <body>
     <p>This is login page</p>
     <p>这是登录页面。</p>
+    <form action="" METHOD="post">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Username">
+        <input type="password" name="username" placeholder="Password">
+        <button type="submit">登陆</button>
+    </form>
 </body>
 </html>

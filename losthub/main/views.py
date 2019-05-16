@@ -1,5 +1,6 @@
 from django.shortcuts import render
 
+
 # 渲染home
 def home(request):
     return render(request, "home.html")
@@ -20,7 +21,7 @@ def register(request):
     return render(request, "register.html")
 
 
-# 渲染login
+# login页的登录功能
 def login(request):
     return render(request, "login.html")
 
