@@ -1,0 +1,22 @@
+.container{
+    max-width: 1080px;
+    background: #000;
+    text-align: center;
+}
+.main-button{
+    background: rgb(255, 144, 0);
+    color: #000;
+    display: inline;
+    font-size: 40px;
+    margin: 100px;
+    border-radius: 20px;
+    padding: 5px;
+}
+.main-button:hover{
+    background: #000;
+    color: rgb(255, 144, 0);
+    text-decoration: none;
+}
+.main-button:visited{
+    text-decoration: none;
+}
