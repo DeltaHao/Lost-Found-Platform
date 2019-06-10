@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import UserCreationForm
-from .forms import NormalUserForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
+from .forms import NormalUserForm, NormalUserChangeForm
 from .models import StudentForm
 from django.contrib.auth.models import User
 
@@ -81,9 +81,16 @@ def user_center(request):
 def info_edit(request):
     if request.user.is_authenticated:
         if request.method == "POST":
-            return redirect("main:user_center")
+            edit_form = NormalUserChangeForm(request.POST, instance=request.user)
+            if edit_form.is_valid():
+                edit_form.save()
+                return redirect("main:user_center")
         else:
-            return render(request, "info_edit.html")
+            edit_form = NormalUserChangeForm(instance=request.user)
+
+        content = {"edit_form": edit_form, "user": request.user}
+        return render(request, "info_edit.html", content)
+
     else:
         return redirect("main:log_in")
 
@@ -92,9 +99,16 @@ def info_edit(request):
 def change_password(request):
     if request.user.is_authenticated:
         if request.method == "POST":
-            return redirect("main:user_center")
+            password_form = PasswordChangeForm(data=request.POST, user=request.user)
+            if password_form.is_valid():
+                password_form.save()
+                return redirect("main:log_in")
         else:
-            return render(request, "info_edit.html")
+            password_form = PasswordChangeForm(user=request.user)
+
+        content = {"password_form": password_form, "user": request.user}
+        return render(request, "change_password.html", content)
+
     else:
         return redirect("main:log_in")
 
@@ -107,7 +121,10 @@ def passage_manage(request):
 # 渲染publish_lost
 def publish_lost(request):
     if request.user.is_authenticated:
-        return render(request, "publish_lost.html")
+        if request.method == "POST":
+            item_info = request
+        else:
+            return render(request, "publish_lost.html")
     else:
         return redirect("main:log_in")
 

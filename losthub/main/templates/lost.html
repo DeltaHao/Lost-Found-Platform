@@ -73,5 +73,29 @@
 
 <p>This is lost page</p>
 <p>这是发布寻物信息的页面，即失主发布自己丢失物品的信息。</p>
+
+<button><a href="{% url "main:publish_lost" %}">我丢了东西</a> </button>
+
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th>物品</th>
+        <th>时间</th>
+        <th>地点</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody class="no-underline">
+      <tr>
+        <th scope="row">黑框眼镜</th>
+        <td>1926-08-17</td>
+        <td>江苏省扬州市</td>
+        <td><a class="text-primary" href="#">我捡到了</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 </body>
 </html>

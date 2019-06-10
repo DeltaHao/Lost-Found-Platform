@@ -6,10 +6,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>发布</title>
-    <link rel="stylesheet" href="{% static "css\bootstrap.min.css"%}">
-    <link rel="stylesheet" href="{% static "css\navbar.css"%}">
-    <script type="text/javascript" src="{%static "js\jquery-3.4.1.min.js"%}"></script>
-    <script type="text/javascript" src="{%static "js\bootstrap.min.js"%}"></script>
+    <link rel="stylesheet" href="{% static "css\bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "css\navbar.css" %}">
+    <script type="text/javascript" src="{% static "js\jquery-3.4.1.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "js\bootstrap.min.js" %}"></script>
 </head>
 <body>
 <nav class="navbar navbar-inverse ">
@@ -66,7 +66,14 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
-    <p>This is publish_lost page</p>
-    <p>这是发布自己丢失物品信息的页面。</p>
+<p>This is publish_lost page</p>
+<p>这是发布自己丢失物品信息的页面。</p>
+<form action="lost.html" method="POST">
+    {% csrf_token %}
+    <p>物品名称：<input name="item_name" type="text" placeholder="请尽量准确地输入失物名称"></p>
+    <p>丢失时间：<input name="item_time" type="date"></p>
+    <p>丢失地点：<input name="item_location" type="text" placeholder="以 校区-建筑-房间 的格式输入"></p>
+    <button type="submit">发布</button>
+</form>
 </body>
 </html>
