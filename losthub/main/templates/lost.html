@@ -87,14 +87,19 @@
       </tr>
     </thead>
     <tbody class="no-underline">
-      <tr>
-        <th scope="row">黑框眼镜</th>
-        <td>1926-08-17</td>
-        <td>江苏省扬州市</td>
-        <td><a class="text-primary" href="#">我捡到了</a></td>
-      </tr>
+      {% for item in lost_items %}
+          <tr>
+            <th scope="row">{{ item.item_name }}</th>
+            <td>{{ item.item_time }}</td>
+            <td>{{ item.item_location }}</td>
+            <td><a class="text-primary" href="#">我捡到了</a></td>
+          </tr>
+      {% endfor %}
+
+
     </tbody>
   </table>
+
 </div>
 
 </body>

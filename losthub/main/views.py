@@ -6,6 +6,9 @@ from .models import StudentForm
 from django.contrib.auth.models import User
 
 
+lst = []
+
+
 # 渲染home
 def home(request):
     return render(request, "home.html")
@@ -13,7 +16,9 @@ def home(request):
 
 # 渲染lost
 def lost(request):
-    return render(request, "lost.html")
+    global lst
+    content = {"lost_items": lst}
+    return render(request, "lost.html", content)
 
 
 # 渲染found
@@ -120,10 +125,18 @@ def passage_manage(request):
 
 # 渲染publish_lost
 def publish_lost(request):
+    global lst
     if request.user.is_authenticated:
         if request.method == "POST":
-            item_info = request
-        else:
+            if request.POST["item_name"]:  # 物品名称必填
+                new_item = {"item_name": request.POST["item_name"], "item_time": request.POST["item_time"], "item_location": request.POST["item_location"]}
+                lst.append(new_item)
+                content = {"lost_items": lst}
+                return redirect("main:lost")
+            else:
+                content = {"error": "物品名称必填！"}
+                return render(request, "publish_lost.html", content)
+        else:  # 外部访问
             return render(request, "publish_lost.html")
     else:
         return redirect("main:log_in")

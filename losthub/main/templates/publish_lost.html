@@ -68,12 +68,13 @@
 </nav>
 <p>This is publish_lost page</p>
 <p>这是发布自己丢失物品信息的页面。</p>
-<form action="lost.html" method="POST">
+<form action="" method="POST">
     {% csrf_token %}
     <p>物品名称：<input name="item_name" type="text" placeholder="请尽量准确地输入失物名称"></p>
     <p>丢失时间：<input name="item_time" type="date"></p>
     <p>丢失地点：<input name="item_location" type="text" placeholder="以 校区-建筑-房间 的格式输入"></p>
     <button type="submit">发布</button>
+    {{ error }}
 </form>
 </body>
 </html>
