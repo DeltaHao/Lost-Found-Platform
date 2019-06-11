@@ -123,14 +123,29 @@ def passage_manage(request):
     return render(request, "passage_manage.html")
 
 
+
+# 渲染publish_lost
+def item_return(request, forloop_counter):
+    global lst
+    if request.user.is_authenticated:
+        lst[int(forloop_counter)-1]["item_status"] = True
+        return redirect("main:lost")
+    else:
+        return redirect("main:log_in")
+
+
 # 渲染publish_lost
 def publish_lost(request):
     global lst
     if request.user.is_authenticated:
         if request.method == "POST":
             if request.POST["item_name"]:  # 物品名称必填
-                new_item = {"item_name": request.POST["item_name"], "item_time": request.POST["item_time"], "item_location": request.POST["item_location"]}
+                # 分别为物品名称、丢失时间、丢失地点、物品状态
+                # 物品状态默认为False，即未寻回
+                new_item = {"item_name": request.POST["item_name"], "item_time": request.POST["item_time"], "item_location": request.POST["item_location"], "item_status": False}
+                lst.reverse()
                 lst.append(new_item)
+                lst.reverse()
                 content = {"lost_items": lst}
                 return redirect("main:lost")
             else:

@@ -19,4 +19,5 @@ urlpatterns = [
     path("passage_manage/", views.passage_manage, name="passage_manage"),  # 个人消息管理页面
     path("publish_lost/", views.publish_lost, name="publish_lost"),  # 发布丢失物品信息的页面
     path("publish_found/", views.publish_found, name="publish_found"),  # 发布捡到物品信息的页面
+    path("item_return/<forloop_counter>", views.item_return, name="item_return"),  # 归还物品，同时作用于lost和found
 ]
