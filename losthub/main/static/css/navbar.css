@@ -33,14 +33,16 @@
     background-color: #ddd;
 }
 .btn{
-    background-color:rgb(255, 144, 1);
-    font-size: 18px;
-    letter-spacing:5px;
-    border: none;
-    padding: 5px;
+  background-color:rgb(255, 144, 1);
+  font-size: 18px;
+  letter-spacing:5px;
+  border: none;
+  padding: 5px;
+}
+.navbar .btn{
     margin-left: 10px;
 }
-.btn:hover{
+.navbar .btn:hover{
     background-color: rgb(255, 180, 1);
 }
 .dropdown-menu{

@@ -25,16 +25,10 @@
             <a class="navbar-brand" href="{% url "main:home" %}"><img src="{% static "img\logo.jpg" %}" alt="失物招领"></a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-default">搜索 <span class="glyphicon glyphicon-search"
-                                                                       aria-hidden="true"></span></button>
-            </form>
+
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{% url "main:found" %}" class="active">失物</a></li>
-                <li><a href="{% url "main:lost" %}">寻物</a></li>
+                <li><a href="{% url "main:found" %}">失物</a></li>
+                <li><a href="{% url "main:lost" %}" class="active">寻物</a></li>
                 <li><a href="#">已找到</a></li>
                 <li class="dropdown">
                     {% if user.is_authenticated %}
@@ -71,6 +65,12 @@
 <form action="" method="POST">
     {% csrf_token %}
     <p>物品名称：<input name="item_name" type="text" placeholder="请尽量准确地输入失物名称"></p>
+    <p>物品类型：<select name="item_type">
+        <option value="校园卡">校园卡</option>
+        <option value="书籍类">书籍类</option>
+        <option value="电子产品">电子产品</option>
+        <option value="其他">其他</option>
+    </select></p>
     <p>丢失时间：<input name="item_time" type="date"></p>
     <p>丢失地点：<input name="item_location" type="text" placeholder="以 校区-建筑-房间 的格式输入"></p>
     <button type="submit">发布</button>

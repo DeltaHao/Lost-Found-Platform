@@ -5,11 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>失物招领</title>
-    <link rel="stylesheet" href="{% static "css\bootstrap.min.css" %}">
-    <link rel="stylesheet" href="{% static "css\navbar.css" %}">
-    <link rel="stylesheet" href="{% static "css\home.css" %}">
-    <script type="text/javascript" src="{% static "js\jquery-3.4.1.min.js" %}"></script>
-    <script type="text/javascript" src="{% static "js\bootstrap.min.js" %}"></script>
+    <link rel="stylesheet" href="{% static 'css\bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css\navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css\home.css' %}">
+    <link rel="stylesheet" href="{% static 'css\leftPart.css' %}">
+    <script type="text/javascript" src="{% static 'js\jquery-3.4.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js\bootstrap.min.js' %}"></script>
 </head>
 <body>
 <nav class="navbar navbar-inverse ">
@@ -25,16 +26,20 @@
             <a class="navbar-brand" href="{% url "main:home" %}"><img src="{% static "img\logo.jpg" %}" alt="失物招领"></a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <form class="navbar-form navbar-left">
+            <form method="POST" action="{% url "main:lost" %}" class="navbar-form navbar-left">
+
+                {% csrf_token %}
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
+                    <input name="search_info" type="text" class="form-control" placeholder="Search">
                 </div>
+
                 <button type="submit" class="btn btn-default">搜索 <span class="glyphicon glyphicon-search"
                                                                        aria-hidden="true"></span></button>
+
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{% url "main:found" %}" class="active">失物</a></li>
-                <li><a href="{% url "main:lost" %}">寻物</a></li>
+                <li><a href="{% url "main:found" %}">失物</a></li>
+                <li><a href="{% url "main:lost" %}" class="active">寻物</a></li>
                 <li><a href="#">已找到</a></li>
                 <li class="dropdown">
                     {% if user.is_authenticated %}
@@ -71,40 +76,70 @@
     <a href="#" class="main-button">捡到</a> -->
 </div>
 
-<p>This is lost page</p>
-<p>这是发布寻物信息的页面，即失主发布自己丢失物品的信息。</p>
 
-<button><a href="{% url "main:publish_lost" %}">我丢了东西</a></button>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 left-part">
+            <div class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   我要发布 <span class="glyphicon glyphicon-plus"  aria-hidden="true"></span><span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu">
+                <li><a href="{% url "main:publish_lost" %}">我丢失了物品 </a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="{% url "main:publish_found" %}">我捡到了物品 </a></li>
+              </ul>
+            </div>
+            <br>
+            <div class="typebar">
 
-<div class="table-responsive">
-    <table class="table table-hover">
-        <thead class="thead-light">
-        <tr>
-            <th>物品</th>
-            <th>时间</th>
-            <th>地点</th>
-            <th>操作</th>
-        </tr>
-        </thead>
-        <tbody class="no-underline">
-        {% for item in lost_items %}
-            <tr>
-                <th scope="row">{{ item.item_name }}</th>
-                <td>{{ item.item_time }}</td>
-                <td>{{ item.item_location }}</td>
-                {% if item.item_status == False %}
-                    <td><a class="text-primary" href="{% url "main:item_return" forloop.counter %}">我捡到了</a></td>
-                {% else %}
-                    <td>已寻回</td>
-                {% endif %}
-            </tr>
-        {% endfor %}
+                <h3>分类</h3>
+                <div class="list-group">
+                    <a href="{% url "main:lost" %}" class="list-group-item">全部<span class="badge">{{ all }}</span></a>
+                    <a href="{% url "main:lost_card" %}" class="list-group-item">校园卡<span class="badge">{{ card }}</span></a>
+                    <a href="{% url "main:lost_book" %}" class="list-group-item">书籍<span class="badge">{{ book }}</span></a>
+                    <a href="{% url "main:lost_elec" %}" class="list-group-item">电子产品<span class="badge">{{ elec }}</span></a>
+                    <a href="{% url "main:lost_other" %}" class="list-group-item">其他<span class="badge">{{ other }}</span></a>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-9 right-part">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="thead-light">
+                    <tr>
+                        <th>物品</th>
+                        <th>分类</th>
+                        <th>时间</th>
+                        <th>地点</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody class="no-underline">
+                    {% for item in lost_items %}
+                        <tr>
+                            <th scope="row">{{ item.item_name }}</th>
+                            <td>{{ item.item_type }}</td>
+                            <td>{{ item.item_time }}</td>
+                            <td>{{ item.item_location }}</td>
+                            {% if item.item_status == False %}
+                                <td><a class="text-primary" href="{% url "main:lostitem_return" forloop.counter %}">我捡到了</a></td>
+                            {% else %}
+                                <td>已寻回</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
 
 
-        </tbody>
-    </table>
+                    </tbody>
+                </table>
 
+            </div>
+        </div>
+    </div>
 </div>
+
 
 </body>
 </html>

@@ -7,9 +7,17 @@ app_name = "main"
 
 # 处理链接跳转的函数写在views.py中
 urlpatterns = [
-    path("", views.home, name="home"),  # 主页
-    path("lost/", views.lost, name="lost"),  # 发布寻物信息的页面
-    path("found/", views.found, name="found"),  # 发布捡到物品信息的页面
+    path("", views.lost, name="home"),  # 主页
+    path("lost/", views.lost, name="lost"),  # 寻物信息的页面
+    path("lost_card/", views.lost_card, name="lost_card"),
+    path("lost_book/", views.lost_book, name="lost_book"),
+    path("lost_elec/", views.lost_elec, name="lost_elec"),
+    path("lost_other/", views.lost_other, name="lost_other"),
+    path("found/", views.found, name="found"),  # 捡到物品信息的页面
+    path("found_card/", views.found_card, name="found_card"),
+    path("found_book/", views.found_book, name="found_book"),
+    path("found_elec/", views.found_elec, name="found_elec"),
+    path("found_other/", views.found_other, name="found_other"),
     path("register/", views.register, name="register"),  # 注册页面
     path("log_in/", views.log_in, name="log_in"),  # 登录页面
     path("log_out/", views.log_out, name="log_out"),  # 登录页面
@@ -19,5 +27,6 @@ urlpatterns = [
     path("passage_manage/", views.passage_manage, name="passage_manage"),  # 个人消息管理页面
     path("publish_lost/", views.publish_lost, name="publish_lost"),  # 发布丢失物品信息的页面
     path("publish_found/", views.publish_found, name="publish_found"),  # 发布捡到物品信息的页面
-    path("item_return/<forloop_counter>", views.item_return, name="item_return"),  # 归还物品，同时作用于lost和found
+    path("lostitem_return/<forloop_counter>", views.lostitem_return, name="lostitem_return"),  # 归还物品，作用于lost
+    path("founditem_return/<forloop_counter>", views.founditem_return, name="founditem_return"),  # 归还物品，作用于found
 ]

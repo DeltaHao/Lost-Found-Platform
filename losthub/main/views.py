@@ -2,11 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from .forms import NormalUserForm, NormalUserChangeForm
-from .models import StudentForm
+from .models import StudentForm, LostItemData, FoundItemData
 from django.contrib.auth.models import User
-
-
-lst = []
 
 
 # 渲染home
@@ -16,14 +13,280 @@ def home(request):
 
 # 渲染lost
 def lost(request):
-    global lst
-    content = {"lost_items": lst}
+    book_amount_lost = 0
+    card_amount_lost = 0
+    elec_amount_lost = 0
+    other_amount_lost = 0
+    for item in LostItemData.objects.all():
+        if item.item_type == "校园卡":
+            card_amount_lost += 1        
+        elif item.item_type == "书籍类":
+            book_amount_lost += 1        
+        elif item.item_type == "电子产品":
+            elec_amount_lost += 1
+        elif item.item_type == "其他":
+            other_amount_lost += 1
+    amount_lost = book_amount_lost + card_amount_lost + elec_amount_lost + other_amount_lost
+    if request.method == "POST":
+        items = []
+        info = str(request.POST["search_info"])
+        for item in LostItemData.objects.all():
+            if info in item.item_name or info in item.item_type or info in item.item_time or info in item.item_location:
+                items.append(item)
+
+        items.reverse()
+        content = {"lost_items": items, "all": amount_lost, "card": card_amount_lost, "book": book_amount_lost, "elec": elec_amount_lost, "other": other_amount_lost}
+        return render(request, "lost.html", content)
+    else:
+        items = []
+        for item in LostItemData.objects.all():
+            items.append(item)
+        items.reverse()
+        content = {"lost_items": items, "all": amount_lost, "card": card_amount_lost, "book": book_amount_lost, "elec": elec_amount_lost, "other": other_amount_lost}
+        return render(request, "lost.html", content)
+
+
+# 渲染lost
+def lost_card(request):
+    book_amount_lost = 0
+    card_amount_lost = 0
+    elec_amount_lost = 0
+    other_amount_lost = 0
+    for item in LostItemData.objects.all():
+        if item.item_type == "校园卡":
+            card_amount_lost += 1        
+        elif item.item_type == "书籍类":
+            book_amount_lost += 1        
+        elif item.item_type == "电子产品":
+            elec_amount_lost += 1
+        elif item.item_type == "其他":
+            other_amount_lost += 1
+    amount_lost = book_amount_lost + card_amount_lost + elec_amount_lost + other_amount_lost
+    items = []
+    for item in LostItemData.objects.all():
+        if item.item_type == "校园卡":
+            items.append(item)
+
+    items.reverse()
+    content = {"lost_items": items, "all": amount_lost, "card": card_amount_lost, "book": book_amount_lost, "elec": elec_amount_lost, "other": other_amount_lost}
+    return render(request, "lost.html", content)
+
+
+# 渲染lost
+def lost_book(request):
+    book_amount_lost = 0
+    card_amount_lost = 0
+    elec_amount_lost = 0
+    other_amount_lost = 0
+    for item in LostItemData.objects.all():
+        if item.item_type == "校园卡":
+            card_amount_lost += 1        
+        elif item.item_type == "书籍类":
+            book_amount_lost += 1        
+        elif item.item_type == "电子产品":
+            elec_amount_lost += 1
+        elif item.item_type == "其他":
+            other_amount_lost += 1
+    amount_lost = book_amount_lost + card_amount_lost + elec_amount_lost + other_amount_lost
+    items = []
+    for item in LostItemData.objects.all():
+        if item.item_type == "书籍类":
+            items.append(item)
+
+    items.reverse()
+    content = {"lost_items": items, "all": amount_lost, "card": card_amount_lost, "book": book_amount_lost, "elec": elec_amount_lost, "other": other_amount_lost}
+    return render(request, "lost.html", content)
+
+
+# 渲染lost
+def lost_elec(request):
+    book_amount_lost = 0
+    card_amount_lost = 0
+    elec_amount_lost = 0
+    other_amount_lost = 0
+    for item in LostItemData.objects.all():
+        if item.item_type == "校园卡":
+            card_amount_lost += 1        
+        elif item.item_type == "书籍类":
+            book_amount_lost += 1        
+        elif item.item_type == "电子产品":
+            elec_amount_lost += 1
+        elif item.item_type == "其他":
+            other_amount_lost += 1
+    amount_lost = book_amount_lost + card_amount_lost + elec_amount_lost + other_amount_lost
+    items = []
+    for item in LostItemData.objects.all():
+        if item.item_type == "电子产品":
+            items.append(item)
+
+    items.reverse()
+    content = {"lost_items": items, "all": amount_lost, "card": card_amount_lost, "book": book_amount_lost, "elec": elec_amount_lost, "other": other_amount_lost}
+    return render(request, "lost.html", content)
+
+
+# 渲染lost
+def lost_other(request):
+    book_amount_lost = 0
+    card_amount_lost = 0
+    elec_amount_lost = 0
+    other_amount_lost = 0
+    for item in LostItemData.objects.all():
+        if item.item_type == "校园卡":
+            card_amount_lost += 1        
+        elif item.item_type == "书籍类":
+            book_amount_lost += 1        
+        elif item.item_type == "电子产品":
+            elec_amount_lost += 1
+        elif item.item_type == "其他":
+            other_amount_lost += 1
+    amount_lost = book_amount_lost + card_amount_lost + elec_amount_lost + other_amount_lost
+    items = []
+    for item in LostItemData.objects.all():
+        if item.item_type == "其他":
+            items.append(item)
+
+    items.reverse()
+    content = {"lost_items": items, "all": amount_lost, "card": card_amount_lost, "book": book_amount_lost, "elec": elec_amount_lost, "other": other_amount_lost}
     return render(request, "lost.html", content)
 
 
 # 渲染found
 def found(request):
-    return render(request, "found.html")
+    book_amount_found = 0
+    card_amount_found = 0
+    elec_amount_found = 0
+    other_amount_found = 0
+    for item in LostItemData.objects.all():
+        if item.item_type == "校园卡":
+            card_amount_found += 1        
+        elif item.item_type == "书籍类":
+            book_amount_found += 1        
+        elif item.item_type == "电子产品":
+            elec_amount_found += 1
+        elif item.item_type == "其他":
+            other_amount_found += 1
+    amount_found = book_amount_found + card_amount_found + elec_amount_found + other_amount_found
+    if request.method == "POST":
+        items = []
+        info = str(request.POST["search_info"])
+        for item in FoundItemData.objects.all():
+            if info in item.item_name or info in item.item_type or info in item.item_time or info in item.item_location:
+                items.append(item)
+
+        items.reverse()
+        content = {"found_items": items, "all": amount_found, "card": card_amount_found, "book": book_amount_found, "elec": elec_amount_found, "other": other_amount_found}
+        return render(request, "found.html", content)
+    else:
+        items = []
+        for item in FoundItemData.objects.all():
+            items.append(item)
+        items.reverse()
+        content = {"found_items": items, "all": amount_found, "card": card_amount_found, "book": book_amount_found, "elec": elec_amount_found, "other": other_amount_found}
+        return render(request, "found.html", content)
+
+
+# 渲染found
+def found_card(request):
+    book_amount_found = 0
+    card_amount_found = 0
+    elec_amount_found = 0
+    other_amount_found = 0
+    for item in LostItemData.objects.all():
+        if item.item_type == "校园卡":
+            card_amount_found += 1
+        elif item.item_type == "书籍类":
+            book_amount_found += 1
+        elif item.item_type == "电子产品":
+            elec_amount_found += 1
+        elif item.item_type == "其他":
+            other_amount_found += 1
+    amount_found = book_amount_found + card_amount_found + elec_amount_found + other_amount_found
+    items = []
+    for item in LostItemData.objects.all():
+        if item.item_type == "校园卡":
+            items.append(item)
+
+    items.reverse()
+    content = {"found_items": items, "all": amount_found, "card": card_amount_found, "book": book_amount_found, "elec": elec_amount_found, "other": other_amount_found}
+    return render(request, "found.html", content)
+
+
+# 渲染found
+def found_book(request):
+    book_amount_found = 0
+    card_amount_found = 0
+    elec_amount_found = 0
+    other_amount_found = 0
+    for item in LostItemData.objects.all():
+        if item.item_type == "校园卡":
+            card_amount_found += 1
+        elif item.item_type == "书籍类":
+            book_amount_found += 1
+        elif item.item_type == "电子产品":
+            elec_amount_found += 1
+        elif item.item_type == "其他":
+            other_amount_found += 1
+    amount_found = book_amount_found + card_amount_found + elec_amount_found + other_amount_found
+    items = []
+    for item in LostItemData.objects.all():
+        if item.item_type == "书籍类":
+            items.append(item)
+
+    items.reverse()
+    content = {"found_items": items, "all": amount_found, "card": card_amount_found, "book": book_amount_found, "elec": elec_amount_found, "other": other_amount_found}
+    return render(request, "found.html", content)
+
+
+# 渲染found
+def found_elec(request):
+    book_amount_found = 0
+    card_amount_found = 0
+    elec_amount_found = 0
+    other_amount_found = 0
+    for item in LostItemData.objects.all():
+        if item.item_type == "校园卡":
+            card_amount_found += 1
+        elif item.item_type == "书籍类":
+            book_amount_found += 1
+        elif item.item_type == "电子产品":
+            elec_amount_found += 1
+        elif item.item_type == "其他":
+            other_amount_found += 1
+    amount_found = book_amount_found + card_amount_found + elec_amount_found + other_amount_found
+    items = []
+    for item in LostItemData.objects.all():
+        if item.item_type == "电子产品":
+            items.append(item)
+
+    items.reverse()
+    content = {"found_items": items, "all": amount_found, "card": card_amount_found, "book": book_amount_found, "elec": elec_amount_found, "other": other_amount_found}
+    return render(request, "found.html", content)
+
+
+# 渲染found
+def found_other(request):
+    book_amount_found = 0
+    card_amount_found = 0
+    elec_amount_found = 0
+    other_amount_found = 0
+    for item in LostItemData.objects.all():
+        if item.item_type == "校园卡":
+            card_amount_found += 1
+        elif item.item_type == "书籍类":
+            book_amount_found += 1
+        elif item.item_type == "电子产品":
+            elec_amount_found += 1
+        elif item.item_type == "其他":
+            other_amount_found += 1
+    amount_found = book_amount_found + card_amount_found + elec_amount_found + other_amount_found
+    items = []
+    for item in LostItemData.objects.all():
+        if item.item_type == "其他":
+            items.append(item)
+
+    items.reverse()
+    content = {"found_items": items, "all": amount_found, "card": card_amount_found, "book": book_amount_found, "elec": elec_amount_found, "other": other_amount_found}
+    return render(request, "found.html", content)
 
 
 # 渲染register
@@ -123,30 +386,45 @@ def passage_manage(request):
     return render(request, "passage_manage.html")
 
 
-
-# 渲染publish_lost
-def item_return(request, forloop_counter):
-    global lst
+# 将物品状态修改为已被认领
+def lostitem_return(request, forloop_counter):
     if request.user.is_authenticated:
-        lst[int(forloop_counter)-1]["item_status"] = True
+        items = []
+        for item in LostItemData.objects.all():
+            items.append(item)
+        items.reverse()
+        item_change = items[int(forloop_counter)-1]
+        item_change.item_status = True
+        item_change.save()
         return redirect("main:lost")
+    else:
+        return redirect("main:log_in")
+
+
+# 将物品状态修改为已被归还
+def founditem_return(request, forloop_counter):
+    if request.user.is_authenticated:
+        items = []
+        for item in FoundItemData.objects.all():
+            items.append(item)
+        items.reverse()
+        item_change = items[int(forloop_counter)-1]
+        item_change.item_status = True
+        item_change.save()
+        return redirect("main:found")
     else:
         return redirect("main:log_in")
 
 
 # 渲染publish_lost
 def publish_lost(request):
-    global lst
     if request.user.is_authenticated:
         if request.method == "POST":
             if request.POST["item_name"]:  # 物品名称必填
-                # 分别为物品名称、丢失时间、丢失地点、物品状态
+                # 分别为物品名称、物品类型、丢失时间、丢失地点、物品状态
                 # 物品状态默认为False，即未寻回
-                new_item = {"item_name": request.POST["item_name"], "item_time": request.POST["item_time"], "item_location": request.POST["item_location"], "item_status": False}
-                lst.reverse()
-                lst.append(new_item)
-                lst.reverse()
-                content = {"lost_items": lst}
+                new_item = LostItemData(item_name=request.POST["item_name"], item_type=request.POST["item_type"], item_time=request.POST["item_time"], item_location=request.POST["item_location"])
+                new_item.save()
                 return redirect("main:lost")
             else:
                 content = {"error": "物品名称必填！"}
@@ -160,7 +438,18 @@ def publish_lost(request):
 # 渲染publish_found
 def publish_found(request):
     if request.user.is_authenticated:
-        return render(request, "publish_found.html")
+        if request.method == "POST":
+            if request.POST["item_name"]:  # 物品名称必填
+                # 分别为物品名称、物品类型、捡到时间、捡到地点、物品状态
+                # 物品状态默认为False，即未归还给失主
+                new_item = FoundItemData(item_name=request.POST["item_name"], item_type=request.POST["item_type"], item_time=request.POST["item_time"], item_location=request.POST["item_location"])
+                new_item.save()
+                return redirect("main:found")
+            else:
+                content = {"error": "物品名称必填！"}
+                return render(request, "publish_found.html", content)
+        else:  # 外部访问
+            return render(request, "publish_found.html")
     else:
         return redirect("main:log_in")
 

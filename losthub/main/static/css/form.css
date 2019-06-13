@@ -1,0 +1,21 @@
+.container-form{
+  max-width: 600px;
+  background:rgba(255, 144, 1, 0.2);
+  min-height: 100%;
+  padding-bottom: 50px;
+}
+
+.input-group{
+  width: 100%;
+}
+
+.btn:hover{
+  background: #222;
+  color: rgb(255, 144, 0);
+  text-decoration: none;
+}
+
+.input-group-addon{
+  background-color:rgb(255, 144, 1);
+  color: #000;
+}
