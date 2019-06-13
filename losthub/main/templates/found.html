@@ -7,7 +7,7 @@
     <title>失物招领</title>
     <link rel="stylesheet" href="{% static 'css\bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css\navbar.css' %}">
-    <link rel="stylesheet" href="{% static 'css\home.css' %}">
+    <link rel="stylesheet" href="{% static 'css\rightPart.css' %}">
     <link rel="stylesheet" href="{% static 'css\leftPart.css' %}">
     <script type="text/javascript" src="{% static 'js\jquery-3.4.1.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js\bootstrap.min.js' %}"></script>
@@ -97,43 +97,58 @@
                     <a href="{% url "main:found_card" %}" class="list-group-item">校园卡<span class="badge">{{ card }}</span></a>
                     <a href="{% url "main:found_book" %}" class="list-group-item">书籍<span class="badge">{{ book }}</span></a>
                     <a href="{% url "main:found_elec" %}" class="list-group-item">电子产品<span class="badge">{{ elec }}</span></a>
+                    <a href="{% url "main:lost_study" %}" class="list-group-item">学习用品<span class="badge">{{ study }}</span></a>
+                    <a href="{% url "main:lost_live" %}" class="list-group-item">生活用品<span class="badge">{{ live }}</span></a>
+                    <a href="{% url "main:lost_val" %}" class="list-group-item">贵重物品<span class="badge">{{ val }}</span></a>
                     <a href="{% url "main:found_other" %}" class="list-group-item">其他<span class="badge">{{ other }}</span></a>
               </div>
             </div>
 
         </div>
         <div class="col-md-9 right-part" >
-          <div class="table-responsive">
-    <table class="table table-hover">
-        <thead class="thead-light">
-        <tr>
-            <th>物品</th>
-            <th>分类</th>
-            <th>时间</th>
-            <th>地点</th>
-            <th>操作</th>
-        </tr>
-        </thead>
-        <tbody class="no-underline">
-        {% for item in found_items %}
-            <tr>
-                <th scope="row">{{ item.item_name }}</th>
-                <td>{{ item.item_type }}</td>
-                <td>{{ item.item_time }}</td>
-                <td>{{ item.item_location }}</td>
-                {% if item.item_status == False %}
-                    <td><a class="text-primary" href="{% url "main:founditem_return" forloop.counter %}">这是我的</a></td>
-                {% else %}
-                    <td>已归还</td>
-                {% endif %}
-            </tr>
-        {% endfor %}
+          <!-- {% for item in lost_items %}
+                      <tr><td>{{ user }} 丢失了物品 {{ item.item_name }}</td></tr>
+                      <tr><td>物品描述： {{ item.item_description }}</td></tr>
+                      <tr>
+                          <td>类型：{{ item.item_type }}</td>
+                          <td>时间：{{ item.item_time }}</td>
+                          <td>地点：{{ item.item_location }}</td>
+
+                          {% if item.item_status == False %}
+                              <td><a class="text-primary" href="{% url "main:lostitem_return" forloop.counter %}">我捡到了</a></td>
+                          {% else %}
+                              <td>已寻回</td>
+                          {% endif %}
+                      </tr>
+          {% endfor %} -->
 
 
-        </tbody>
-    </table>
+          {% for item in found_items %}
+          <div class="item">
+            <div class="top-part">
+              <div class="people-name">
+                <a href="#"><span class="glyphicon glyphicon-user"aria-hidden="true"> </span> {{item.item_publisher}}</a>
+                捡到了物品
+                <a href="#">{{item.item_name}}</a>
+              </div>
+              <div class="time">
+                {{ item.item_time }}
+              </div>
+            </div>
+            <div class="item-part">
+              <span class="label label-success item-name">{{ item.item_type }}</span>
+              {% if item.item_status == False %}
+              <button class="btn" type="button" name="button" > <a href="{% url 'main:founditem_return' forloop.counter %}"><span class="glyphicon glyphicon-star"aria-hidden="true" ></span>认领</a> </button>
+              {% else %}
+              <button class="btn" type="button" disabled="disabled" name="button"><span class="glyphicon glyphicon-star"aria-hidden="true"> </span>已认领</button>
+              {% endif %}
+            <div class="description">
+                {{ item.item_description }}
+            </div>
+            </div>
+          </div>
+          {% endfor %}
 
-</div>
         </div>
   </div>
 </div>

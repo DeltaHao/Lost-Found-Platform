@@ -62,8 +62,8 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
-        <div class="container-form container">
-        <h2>登录</h2>
+<div class="container-form container">
+      <h2>登录</h2>
         <form action="" method="POST">
             {% csrf_token %}
             <div class="input-group mt-5 mb-5">
@@ -74,8 +74,8 @@
             <div class="input-group mb-5">
               <div class="input-group-addon">密&nbsp;&nbsp;&nbsp;&nbsp;码</div>
               <input class="form-control" placeholder="请输入您的密码" type="password" name="password">
-          </div>
-            <div class="alert alert-danger" id="alert" role = "alert">{{ login_form.errors }}</div>
+            </div>
+            <div class="alert alert-danger" id="alert" role = "alert">{{ error }}</div>
             <br>
             没有账号？<a href="{% url 'main:register' %}">注册</a>
            <button class="btn btn-block" type="submit">登录</button>

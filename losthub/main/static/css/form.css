@@ -19,3 +19,19 @@
   background-color:rgb(255, 144, 1);
   color: #000;
 }
+
+.button-part{
+  text-align: center;
+}
+
+.button-part .btn{
+  margin-left: 40px;
+  margin-right: 40px;
+}
+.button-part .btn a{
+  color: black;
+}
+.button-part .btn a:hover{
+  text-decoration: none;
+  color: rgb(255, 144, 0);
+}

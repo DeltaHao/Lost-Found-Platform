@@ -8,6 +8,7 @@
     <title>发布</title>
     <link rel="stylesheet" href="{% static "css\bootstrap.min.css" %}">
     <link rel="stylesheet" href="{% static "css\navbar.css" %}">
+    <link rel="stylesheet" href="{% static "css\form.css"%}">
     <script type="text/javascript" src="{% static "js\jquery-3.4.1.min.js" %}"></script>
     <script type="text/javascript" src="{% static "js\bootstrap.min.js" %}"></script>
 </head>
@@ -60,21 +61,54 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
-<p>This is publish_lost page</p>
-<p>这是发布自己丢失物品信息的页面。</p>
-<form action="" method="POST">
-    {% csrf_token %}
-    <p>物品名称：<input name="item_name" type="text" placeholder="请尽量准确地输入失物名称"></p>
-    <p>物品类型：<select name="item_type">
-        <option value="校园卡">校园卡</option>
-        <option value="书籍类">书籍类</option>
-        <option value="电子产品">电子产品</option>
-        <option value="其他">其他</option>
-    </select></p>
-    <p>丢失时间：<input name="item_time" type="date"></p>
-    <p>丢失地点：<input name="item_location" type="text" placeholder="以 校区-建筑-房间 的格式输入"></p>
-    <button type="submit">发布</button>
-    {{ error }}
-</form>
+
+<div class="container-form container">
+    <h2>发布失物</h2>
+    <form action="" method="POST">
+            {% csrf_token %}
+            <div class="input-group mt-5 mb-5">
+              <div class="input-group-addon">物品名称</div>
+              <input type="text" class="form-control" name="item_name" placeholder="请尽量准确地输入失物名称" >
+            </div>
+            <br>
+            <div class="input-group mt-5 mb-5">
+              <div class="input-group-addon">丢失地点</div>
+              <input type="text" class="form-control" name="item_location" placeholder="以 校区-建筑-房间 的格式输入" >
+            </div>
+            <br>
+            <div class="input-group mt-5 mb-5">
+              <div class="input-group-addon">丢失时间</div>
+              <input class="form-control"name="item_time" type="date">
+            </div>
+            <br>
+            <div class="input-group mt-5 mb-5">
+              <div class="input-group-addon">物品描述</div>
+                <textarea class="form-control" rows="3" name="item_description" type="text" placeholder="物品描述最长为50字"></textarea>
+            </div>
+            <br>
+            <div class="input-group mt-5 mb-5">
+              <div class="input-group-addon">物品类型</div>
+              <select class="form-control" name="item_type">
+                  <option value="校园卡">校园卡</option>
+                  <option value="书籍类">书籍类</option>
+                  <option value="电子产品">电子产品</option>
+                  <option value="电子产品">生活用品</option>
+                  <option value="电子产品">学习用品</option>
+                  <option value="电子产品">贵重物品</option>
+                  <option value="其他">其他</option>
+              </select>
+            </div>
+            <br>
+            <input hidden=true type="text" value="{{user}}" name="item_publisher">
+            <div class="alert alert-danger" id="alert" role = "alert">{{ error }}</div>
+           <button class="btn btn-block" type="submit">发布</button>
+    </form>
+</div>
 </body>
+<script type="text/javascript">
+  if ($('#alert').is(":empty")) {
+    $("#alert").hide();
+  }
+</script>
+
 </html>
