@@ -40,7 +40,7 @@ def lost(request):
         items = []
         info = str(request.POST["search_info"])
         for item in LostItemData.objects.all():
-            if info in item.item_name or info in item.item_type or info in item.item_time or info in item.item_location:
+            if info in item.item_name or info in item.item_type or info in item.item_time or info in item.item_location or info in item.item_description or info in item.item_publisher:
                 items.append(item)
 
         items.reverse()
@@ -88,7 +88,8 @@ def lost_card(request):
             items.append(item)
 
     items.reverse()
-    content = {"lost_items": items, "all": amount_lost, "card": card_amount_lost, "book": book_amount_lost, "elec": elec_amount_lost, "other": other_amount_lost, "study": study_amount_lost, "live": live_amount_lost, "val": val_amount_lost}
+    content = {"lost_items": items, "all": amount_lost, "card": card_amount_lost, "book": book_amount_lost, "elec": elec_amount_lost, "other": other_amount_lost, "study": study_amount_lost,
+               "live": live_amount_lost, "val": val_amount_lost}
     return render(request, "lost.html", content)
 
 
@@ -123,7 +124,8 @@ def lost_book(request):
             items.append(item)
 
     items.reverse()
-    content = {"lost_items": items, "all": amount_lost, "card": card_amount_lost, "book": book_amount_lost, "elec": elec_amount_lost, "other": other_amount_lost, "study": study_amount_lost, "live": live_amount_lost, "val": val_amount_lost}
+    content = {"lost_items": items, "all": amount_lost, "card": card_amount_lost, "book": book_amount_lost, "elec": elec_amount_lost, "other": other_amount_lost, "study": study_amount_lost,
+               "live": live_amount_lost, "val": val_amount_lost}
     return render(request, "lost.html", content)
 
 
@@ -158,8 +160,10 @@ def lost_study(request):
             items.append(item)
 
     items.reverse()
-    content = {"lost_items": items, "all": amount_lost, "card": card_amount_lost, "book": book_amount_lost, "elec": elec_amount_lost, "other": other_amount_lost, "study": study_amount_lost, "live": live_amount_lost, "val": val_amount_lost}
+    content = {"lost_items": items, "all": amount_lost, "card": card_amount_lost, "book": book_amount_lost, "elec": elec_amount_lost, "other": other_amount_lost, "study": study_amount_lost,
+               "live": live_amount_lost, "val": val_amount_lost}
     return render(request, "lost.html", content)
+
 
 # 渲染lost
 def lost_live(request):
@@ -192,8 +196,10 @@ def lost_live(request):
             items.append(item)
 
     items.reverse()
-    content = {"lost_items": items, "all": amount_lost, "card": card_amount_lost, "book": book_amount_lost, "elec": elec_amount_lost, "other": other_amount_lost, "study": study_amount_lost, "live": live_amount_lost, "val": val_amount_lost}
+    content = {"lost_items": items, "all": amount_lost, "card": card_amount_lost, "book": book_amount_lost, "elec": elec_amount_lost, "other": other_amount_lost, "study": study_amount_lost,
+               "live": live_amount_lost, "val": val_amount_lost}
     return render(request, "lost.html", content)
+
 
 # 渲染lost
 def lost_val(request):
@@ -226,7 +232,8 @@ def lost_val(request):
             items.append(item)
 
     items.reverse()
-    content = {"lost_items": items, "all": amount_lost, "card": card_amount_lost, "book": book_amount_lost, "elec": elec_amount_lost, "other": other_amount_lost, "study": study_amount_lost, "live": live_amount_lost, "val": val_amount_lost}
+    content = {"lost_items": items, "all": amount_lost, "card": card_amount_lost, "book": book_amount_lost, "elec": elec_amount_lost, "other": other_amount_lost, "study": study_amount_lost,
+               "live": live_amount_lost, "val": val_amount_lost}
     return render(request, "lost.html", content)
 
 
@@ -261,7 +268,8 @@ def lost_elec(request):
             items.append(item)
 
     items.reverse()
-    content = {"lost_items": items, "all": amount_lost, "card": card_amount_lost, "book": book_amount_lost, "elec": elec_amount_lost, "other": other_amount_lost, "study": study_amount_lost, "live": live_amount_lost, "val": val_amount_lost}
+    content = {"lost_items": items, "all": amount_lost, "card": card_amount_lost, "book": book_amount_lost, "elec": elec_amount_lost, "other": other_amount_lost, "study": study_amount_lost,
+               "live": live_amount_lost, "val": val_amount_lost}
     return render(request, "lost.html", content)
 
 
@@ -296,9 +304,9 @@ def lost_other(request):
             items.append(item)
 
     items.reverse()
-    content = {"lost_items": items, "all": amount_lost, "card": card_amount_lost, "book": book_amount_lost, "elec": elec_amount_lost, "other": other_amount_lost, "study": study_amount_lost, "live": live_amount_lost, "val": val_amount_lost}
+    content = {"lost_items": items, "all": amount_lost, "card": card_amount_lost, "book": book_amount_lost, "elec": elec_amount_lost, "other": other_amount_lost, "study": study_amount_lost,
+               "live": live_amount_lost, "val": val_amount_lost}
     return render(request, "lost.html", content)
-
 
 
 # 渲染found
@@ -330,7 +338,7 @@ def found(request):
         items = []
         info = str(request.POST["search_info"])
         for item in FoundItemData.objects.all():
-            if info in item.item_name or info in item.item_type or info in item.item_time or info in item.item_location:
+            if info in item.item_name or info in item.item_type or info in item.item_time or info in item.item_location or info in item.item_description or info in item.item_publisher:
                 items.append(item)
 
         items.reverse()
@@ -378,7 +386,8 @@ def found_card(request):
             items.append(item)
 
     items.reverse()
-    content = {"found_items": items, "all": amount_found, "card": card_amount_found, "book": book_amount_found, "elec": elec_amount_found, "other": other_amount_found, "study": study_amount_found, "live": live_amount_found, "val": val_amount_found}
+    content = {"found_items": items, "all": amount_found, "card": card_amount_found, "book": book_amount_found, "elec": elec_amount_found, "other": other_amount_found, "study": study_amount_found,
+               "live": live_amount_found, "val": val_amount_found}
     return render(request, "found.html", content)
 
 
@@ -413,7 +422,8 @@ def found_book(request):
             items.append(item)
 
     items.reverse()
-    content = {"found_items": items, "all": amount_found, "card": card_amount_found, "book": book_amount_found, "elec": elec_amount_found, "other": other_amount_found, "study": study_amount_found, "live": live_amount_found, "val": val_amount_found}
+    content = {"found_items": items, "all": amount_found, "card": card_amount_found, "book": book_amount_found, "elec": elec_amount_found, "other": other_amount_found, "study": study_amount_found,
+               "live": live_amount_found, "val": val_amount_found}
     return render(request, "found.html", content)
 
 
@@ -448,8 +458,10 @@ def found_study(request):
             items.append(item)
 
     items.reverse()
-    content = {"found_items": items, "all": amount_found, "card": card_amount_found, "book": book_amount_found, "elec": elec_amount_found, "other": other_amount_found, "study": study_amount_found, "live": live_amount_found, "val": val_amount_found}
+    content = {"found_items": items, "all": amount_found, "card": card_amount_found, "book": book_amount_found, "elec": elec_amount_found, "other": other_amount_found, "study": study_amount_found,
+               "live": live_amount_found, "val": val_amount_found}
     return render(request, "found.html", content)
+
 
 # 渲染found
 def found_live(request):
@@ -482,8 +494,10 @@ def found_live(request):
             items.append(item)
 
     items.reverse()
-    content = {"found_items": items, "all": amount_found, "card": card_amount_found, "book": book_amount_found, "elec": elec_amount_found, "other": other_amount_found, "study": study_amount_found, "live": live_amount_found, "val": val_amount_found}
+    content = {"found_items": items, "all": amount_found, "card": card_amount_found, "book": book_amount_found, "elec": elec_amount_found, "other": other_amount_found, "study": study_amount_found,
+               "live": live_amount_found, "val": val_amount_found}
     return render(request, "found.html", content)
+
 
 # 渲染found
 def found_val(request):
@@ -516,7 +530,8 @@ def found_val(request):
             items.append(item)
 
     items.reverse()
-    content = {"found_items": items, "all": amount_found, "card": card_amount_found, "book": book_amount_found, "elec": elec_amount_found, "other": other_amount_found, "study": study_amount_found, "live": live_amount_found, "val": val_amount_found}
+    content = {"found_items": items, "all": amount_found, "card": card_amount_found, "book": book_amount_found, "elec": elec_amount_found, "other": other_amount_found, "study": study_amount_found,
+               "live": live_amount_found, "val": val_amount_found}
     return render(request, "found.html", content)
 
 
@@ -551,7 +566,8 @@ def found_elec(request):
             items.append(item)
 
     items.reverse()
-    content = {"found_items": items, "all": amount_found, "card": card_amount_found, "book": book_amount_found, "elec": elec_amount_found, "other": other_amount_found, "study": study_amount_found, "live": live_amount_found, "val": val_amount_found}
+    content = {"found_items": items, "all": amount_found, "card": card_amount_found, "book": book_amount_found, "elec": elec_amount_found, "other": other_amount_found, "study": study_amount_found,
+               "live": live_amount_found, "val": val_amount_found}
     return render(request, "found.html", content)
 
 
@@ -586,7 +602,8 @@ def found_other(request):
             items.append(item)
 
     items.reverse()
-    content = {"found_items": items, "all": amount_found, "card": card_amount_found, "book": book_amount_found, "elec": elec_amount_found, "other": other_amount_found, "study": study_amount_found, "live": live_amount_found, "val": val_amount_found}
+    content = {"found_items": items, "all": amount_found, "card": card_amount_found, "book": book_amount_found, "elec": elec_amount_found, "other": other_amount_found, "study": study_amount_found,
+               "live": live_amount_found, "val": val_amount_found}
     return render(request, "found.html", content)
 
 
@@ -694,7 +711,7 @@ def lostitem_return(request, forloop_counter):
         for item in LostItemData.objects.all():
             items.append(item)
         items.reverse()
-        item_change = items[int(forloop_counter)-1]
+        item_change = items[int(forloop_counter) - 1]
         item_change.item_status = True
         item_change.save()
         return redirect("main:lost")
@@ -709,7 +726,7 @@ def founditem_return(request, forloop_counter):
         for item in FoundItemData.objects.all():
             items.append(item)
         items.reverse()
-        item_change = items[int(forloop_counter)-1]
+        item_change = items[int(forloop_counter) - 1]
         item_change.item_status = True
         item_change.save()
         return redirect("main:found")
@@ -724,7 +741,8 @@ def publish_lost(request):
             if request.POST["item_name"]:  # 物品名称必填
                 # 分别为物品名称、物品描述、物品类型、丢失时间、丢失地点、物品状态
                 # 物品状态默认为False，即未寻回
-                new_item = LostItemData(item_name=request.POST["item_name"], item_description=request.POST["item_description"], item_type=request.POST["item_type"], item_time=request.POST["item_time"], item_location=request.POST["item_location"], item_publisher=request.POST["item_publisher"])
+                new_item = LostItemData(item_name=request.POST["item_name"], item_description=request.POST["item_description"], item_type=request.POST["item_type"],
+                                        item_time=request.POST["item_time"], item_location=request.POST["item_location"], item_publisher=request.POST["item_publisher"])
                 new_item.save()
                 return redirect("main:lost")
             else:
@@ -743,7 +761,8 @@ def publish_found(request):
             if request.POST["item_name"]:  # 物品名称必填
                 # 分别为物品名称、物品描述、物品类型、捡到时间、捡到地点、物品状态
                 # 物品状态默认为False，即未归还给失主
-                new_item = FoundItemData(item_name=request.POST["item_name"], item_description=request.POST["item_description"], item_type=request.POST["item_type"], item_time=request.POST["item_time"], item_location=request.POST["item_location"], item_publisher=request.POST["item_publisher"])
+                new_item = FoundItemData(item_name=request.POST["item_name"], item_description=request.POST["item_description"], item_type=request.POST["item_type"],
+                                         item_time=request.POST["item_time"], item_location=request.POST["item_location"], item_publisher=request.POST["item_publisher"])
                 new_item.save()
                 return redirect("main:found")
             else:

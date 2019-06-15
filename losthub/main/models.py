@@ -37,6 +37,5 @@ class FoundItemData(models.Model):
     item_status = models.BooleanField(default=False)
     item_publisher = models.CharField(max_length=20, default="")
 
-
     def __str__(self):
         return self.item_name
